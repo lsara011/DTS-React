@@ -1,0 +1,7 @@
+{
+  "name": "Davie Tire & Auto - Professional Service",
+  "description": "A premium, dark-themed automotive service platform featuring scheduling, history, and location details for Davie's most trusted tire and auto care experts.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
