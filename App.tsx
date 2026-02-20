@@ -171,8 +171,7 @@ const Header = () => {
 
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex flex-col items-end mr-4">
-            <span className="text-[10px] uppercase tracking-widest text-slate-400">Emergency Dispatch</span>
-            <span className="text-sm font-bold text-white">(954) 555-0199</span>
+            <span className="text-sm font-bold text-white">(954) 860-9497</span>
           </div>
           <Link 
             to="/schedule"
@@ -229,20 +228,19 @@ const Footer = () => (
         <ul className="space-y-4 text-slate-400 text-sm">
           <li className="flex items-start gap-2">
             <span className="material-symbols-outlined text-primary text-sm">location_on</span>
-            <span>1234 Stirling Rd,<br/>Davie, FL 33314</span>
+            <span>3800 Davie Blvd, B,<br/>Fort Lauderdale, FL 33312</span>
           </li>
           <li className="flex items-center gap-2">
             <span className="material-symbols-outlined text-primary text-sm">phone</span>
-            <span>(954) 555-0199</span>
+            <span>(954) 860-9497</span>
           </li>
         </ul>
       </div>
       <div>
         <h4 className="font-bold mb-6 uppercase tracking-widest text-sm text-primary">Hours</h4>
         <ul className="space-y-4 text-slate-400 text-sm">
-          <li className="flex justify-between"><span>Mon - Fri:</span> <span>8am - 6pm</span></li>
-          <li className="flex justify-between"><span>Saturday:</span> <span>9am - 4pm</span></li>
-          <li className="flex justify-between text-primary font-bold"><span>Sunday:</span> <span>Closed</span></li>
+          <li className="flex justify-between"><span>Mon - Sat:</span> <span>8am - 7pm</span></li>
+          <li className="flex justify-between"><span>Sunday:</span> <span>10am - 4pm</span></li>
         </ul>
       </div>
     </div>

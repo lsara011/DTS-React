@@ -44,34 +44,9 @@ const Owners: React.FC = () => {
           <p className="text-slate-400 text-lg leading-relaxed">
             Married and motivated, Sarah and Marco founded Davie Tire & Auto with a simple goal: treat every car like it was their own family's vehicle. Sarah handles the technical innovations and mobile dispatch systems, while Marco oversees the precision in every tire fitment and alignment.
           </p>
-          <div className="grid grid-cols-2 gap-6 pt-6">
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-3xl font-black text-primary">20+</span>
-              <p className="text-xs uppercase font-bold text-slate-500 mt-1">Combined Years</p>
-            </div>
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-3xl font-black text-primary">ASE</span>
-              <p className="text-xs uppercase font-bold text-slate-500 mt-1">Master Certified</p>
-            </div>
-          </div>
           <blockquote className="border-l-4 border-primary pl-6 py-2 italic text-slate-300 text-xl">
             "We aren't just selling tires; we're providing the safety that gets you home to your family every night."
           </blockquote>
-        </div>
-      </section>
-
-      {/* Community Section */}
-      <section className="bg-accent-indigo/20 py-24 px-6 border-y border-white/5">
-        <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-3xl lg:text-5xl font-black uppercase italic mb-8">Part of the <span className="text-primary">Davie Community</span></h2>
-            <p className="text-slate-400 text-lg leading-relaxed mb-12">
-              Beyond the shop, Sarah and Marco are dedicated to Davie. From sponsoring local Little League teams to hosting free "Car Care 101" workshops for teen drivers, they believe in giving back to the community that keeps them moving.
-            </p>
-            <div className="flex justify-center gap-12 flex-wrap grayscale opacity-50">
-                <span className="text-xl font-bold italic">Davie Chamber of Commerce</span>
-                <span className="text-xl font-bold italic">Florida Auto Assoc.</span>
-                <span className="text-xl font-bold italic">Local 505 Support</span>
-            </div>
         </div>
       </section>
     </div>
