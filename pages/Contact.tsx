@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 
 const DavieTireMapEmbed = () => {
   return (
@@ -18,6 +19,27 @@ const DavieTireMapEmbed = () => {
 };
 
 const Contact: React.FC = () => {
+  const [state, handleSubmit] = useForm("mykngqql");
+  const formStartedAt = useRef(Date.now());
+  const [spamError, setSpamError] = useState("");
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSpamError("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const honeyPot = String(formData.get("company") || "").trim();
+    const submittedTooFast = Date.now() - formStartedAt.current < 4000;
+
+    if (honeyPot || submittedTooFast) {
+      setSpamError("Spam check failed. Please wait a moment and try again.");
+      return;
+    }
+
+    await handleSubmit(event);
+  };
+
   return (
     <div className="flex flex-col w-full p-6 lg:p-20">
       <div className="max-w-7xl mx-auto w-full">
@@ -82,32 +104,70 @@ const Contact: React.FC = () => {
                 Send Us a Message
               </h2>
               <p className="text-white/50 text-sm mb-8">
-                Have a question? Our team responds within 2 business hours.
+                Have a question? Let us know!
               </p>
-              <form className="flex flex-col gap-5 flex-1">
+              {state.succeeded ? (
+                <p className="text-green-400 text-sm">
+                  Thanks. Your message was sent successfully.
+                </p>
+              ) : (
+                <form className="flex flex-col gap-5 flex-1" onSubmit={onSubmit}>
                 <input
+                  name="name"
+                  required
                   className="bg-white/5 border-white/10 rounded-lg text-white p-3"
                   placeholder="Full Name"
                 />
                 <input
+                  name="email"
+                  required
                   className="bg-white/5 border-white/10 rounded-lg text-white p-3"
                   placeholder="Email Address"
                   type="email"
                 />
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
+                  className="text-red-400 text-sm -mt-3"
+                />
                 <input
+                  name="phone"
+                  required
                   className="bg-white/5 border-white/10 rounded-lg text-white p-3"
                   placeholder="Phone Number"
                   type="tel"
                 />
+                <input
+                  name="company"
+                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
                 <textarea
+                  name="message"
+                  required
                   className="bg-white/5 border-white/10 rounded-lg text-white p-3 flex-1 resize-none"
                   placeholder="How can we help?"
                   rows={5}
                 />
-                <button className="w-full py-4 bg-primary text-white font-black text-lg rounded-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all uppercase italic">
-                  Send Message
+                <ValidationError
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
+                  className="text-red-400 text-sm -mt-3"
+                />
+                {spamError && <p className="text-red-400 text-sm -mt-3">{spamError}</p>}
+                <button
+                  type="submit"
+                  disabled={state.submitting}
+                  className="w-full py-4 bg-primary text-white font-black text-lg rounded-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all uppercase italic"
+                >
+                  {state.submitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
+              )}
             </div>
           </div>
         </div>

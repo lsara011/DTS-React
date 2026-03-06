@@ -46,11 +46,12 @@ const About: React.FC = () => {
                 <h3 className="text-primary font-bold text-sm uppercase mb-4 tracking-widest">The Beginning</h3>
                 <h2 className="text-3xl font-bold mb-6 italic uppercase">A Vision for Davie</h2>
                 <p className="text-slate-400 leading-relaxed mb-6">
-                  Growing up in Davie, Sarah Jenkins saw more than just cars on the road—she saw a community in motion. She noticed a gap: the intimidating atmosphere of traditional tire shops that often left customers feeling disconnected.
-                </p>
-                <p className="text-slate-400 leading-relaxed">
-                  In 2021, Sarah traded her corporate career for grease and rubber, envisioning a shop where transparency and expertise were the main drivers.
-                </p>
+After moving to the United States from Honduras at a young age, Ada (also known as Leticia) Sanchez spent much of her life working in the food service industry. Through years of hard work and dedication, she developed a strong work ethic and a deep desire to build something of her own.
+
+Determined to become her own boss, Ada took a leap of faith with the support of friends and family. Alongside her cousin Darwin, she opened a tire shop on Davie Boulevard. What began as a dream quickly became a business rooted in hard work, perseverance, and community service.
+
+Today, Ada is a proud and hardworking mother of three who continues to provide for her family while serving the community with reliable tire services. Her story is one of determination, resilience, and the pursuit of a better future.
+</p>
               </div>
             </div>
             <div className="flex-1 order-1 md:order-2">

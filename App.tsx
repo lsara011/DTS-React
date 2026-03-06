@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -7,138 +7,6 @@ import Schedule from './pages/Schedule';
 import Contact from './pages/Contact';
 import Owners from './pages/Owners';
 import { NAV_LINKS } from './constants';
-import { GoogleGenAI } from "@google/genai";
-import ReactMarkdown from 'react-markdown';
-
-const AIChatAssistant = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{role: 'user' | 'model', text: string}[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, isLoading]);
-
-  const handleSend = async () => {
-    if (!input.trim()) return;
-    const userMsg = input;
-    setInput('');
-    const newMessages = [...messages, { role: 'user', text: userMsg } as const];
-    setMessages(newMessages);
-    setIsLoading(true);
-
-    try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      
-      // Convert internal message history to Gemini API format
-      const contents = newMessages.map(m => ({
-        role: m.role,
-        parts: [{ text: m.text }]
-      }));
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: contents,
-        config: {
-          systemInstruction: `You are an expert tire and automotive technician at Davie Tire & Auto in Davie, FL. 
-          Your tone is professional, helpful, and highly knowledgeable. 
-          Use markdown (bold, lists, headers) to make your recommendations clear. 
-          Emphasize:
-          1. Our expert mobile service (we come to the customer).
-          2. Premium brands like Michelin, Goodyear, and Bridgestone.
-          3. Proper tire fitment based on vehicle type and driving conditions.
-          Keep responses concise but thorough. If you don't know something, suggest they call us at (954) 555-0199.`,
-        },
-      });
-      
-      const responseText = response.text || "I'm sorry, I couldn't process that. How else can I help?";
-      setMessages(prev => [...prev, { role: 'model', text: responseText }]);
-    } catch (error) {
-      console.error("AI Error:", error);
-      setMessages(prev => [...prev, { role: 'model', text: "**Error:** I'm having trouble connecting to my automotive database. Please try again or call our shop directly!" }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <div className="fixed bottom-6 right-6 z-[60]">
-      {isOpen ? (
-        <div className="bg-surface-dark border border-white/10 w-80 md:w-96 h-[500px] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-90 slide-in-from-bottom-10">
-          <div className="p-4 bg-primary text-white flex justify-between items-center shadow-lg">
-            <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined">smart_toy</span>
-              <span className="font-bold italic uppercase tracking-wider">Tire Expert AI</span>
-            </div>
-            <button onClick={() => setIsOpen(false)} className="hover:bg-black/10 rounded-full p-1 transition-colors">
-              <span className="material-symbols-outlined">close</span>
-            </button>
-          </div>
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-background-dark/50 scroll-smooth">
-            {messages.length === 0 && (
-              <div className="text-center py-10 text-slate-500 animate-pulse">
-                <span className="material-symbols-outlined text-4xl mb-2">auto_awesome</span>
-                <p className="text-sm italic px-6">Hello! I'm your Davie Tire expert. Ask me about the best tires for your car or our mobile services!</p>
-              </div>
-            )}
-            {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[90%] p-3 rounded-xl text-sm ${
-                  m.role === 'user' 
-                    ? 'bg-primary text-white rounded-br-none shadow-md' 
-                    : 'bg-white/10 text-slate-200 rounded-bl-none border border-white/5'
-                }`}>
-                  <div className={`prose prose-invert prose-sm max-w-none ${m.role === 'user' ? 'prose-p:text-white' : ''}`}>
-                    <ReactMarkdown>{m.text}</ReactMarkdown>
-                  </div>
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-white/5 p-4 rounded-xl rounded-bl-none border border-white/5 flex gap-1.5 items-center">
-                  <span className="w-2 h-2 bg-primary rounded-full animate-bounce"></span>
-                  <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                  <span className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="p-4 border-t border-white/5 bg-surface-dark flex gap-2">
-            <input 
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Ask about tires, brands, or service..." 
-              className="bg-white/5 border border-white/10 rounded-lg flex-1 px-4 py-2.5 text-sm text-white focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-slate-600" 
-            />
-            <button 
-              onClick={handleSend} 
-              disabled={isLoading || !input.trim()}
-              className="bg-primary text-white p-2.5 rounded-lg hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:grayscale"
-            >
-              <span className="material-symbols-outlined">send</span>
-            </button>
-          </div>
-        </div>
-      ) : (
-        <button 
-          onClick={() => setIsOpen(true)}
-          className="bg-primary hover:bg-red-700 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all group relative border border-white/10"
-        >
-          <span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">chat</span>
-          <span className="absolute right-full mr-4 bg-background-dark/90 backdrop-blur px-3 py-2 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all border border-white/10 uppercase italic translate-x-4 group-hover:translate-x-0">
-            Talk to an Expert
-          </span>
-        </button>
-      )}
-    </div>
-  );
-};
 
 const Header = () => {
   const location = useLocation();
@@ -277,7 +145,6 @@ const App: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
-        <AIChatAssistant />
         <Footer />
       </div>
     </Router>

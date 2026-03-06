@@ -24,7 +24,7 @@ const Home: React.FC = () => {
             </span>
           </div>
           <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight uppercase stagger-2 animate-from-top">
-            Davie's Expert <br />
+            Davie's hometown <br />
             <span className="text-primary italic">Tire Care</span>
           </h1>
           <p className="text-lg text-slate-300 mb-8 max-w-xl leading-relaxed stagger-3 animate-from-top">

@@ -1,9 +1,12 @@
 
 import React, { useState } from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 import { ServiceType, LocationType } from '../types';
 
 const Schedule: React.FC = () => {
+  const [state, handleSubmit] = useForm("mykngqql");
   const [step, setStep] = useState(1);
+  const [reviewConfirmed, setReviewConfirmed] = useState(false);
   const [formData, setFormData] = useState({
     serviceType: ServiceType.TIRE,
     locationType: LocationType.MOBILE,
@@ -11,6 +14,9 @@ const Schedule: React.FC = () => {
     phone: '',
     email: '',
     address: '',
+    city: '',
+    state: '',
+    zipCode: '',
     tireSize: '',
     brand: 'Any Brand (Best Value)',
     year: '',
@@ -21,7 +27,17 @@ const Schedule: React.FC = () => {
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    let { value } = e.target;
+
+    if (name === 'state') {
+      value = value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 2);
+    }
+
+    if (name === 'zipCode') {
+      value = value.replace(/[^\d-]/g, '').slice(0, 10);
+    }
+
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -41,7 +57,10 @@ const Schedule: React.FC = () => {
         return !!formData.name.trim() && 
                !!formData.phone.trim() && 
                !!formData.email.trim() && 
-               !!formData.address.trim();
+               !!formData.address.trim() &&
+               !!formData.city.trim() &&
+               !!formData.state.trim() &&
+               !!formData.zipCode.trim();
       case 5:
         return !!formData.date && !!formData.time;
       default:
@@ -55,7 +74,18 @@ const Schedule: React.FC = () => {
     }
   };
   
-  const prevStep = () => setStep(s => Math.max(s - 1, 1));
+  const prevStep = () => {
+    setReviewConfirmed(false);
+    setStep(s => Math.max(s - 1, 1));
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (step !== 6) {
+      e.preventDefault();
+      return;
+    }
+    void handleSubmit(e);
+  };
 
   const renderStep = () => {
     const valid = isStepValid(step);
@@ -72,6 +102,8 @@ const Schedule: React.FC = () => {
               <label className="relative cursor-pointer group">
                 <input 
                   type="radio" 
+                  name="serviceType"
+                  value={ServiceType.TIRE}
                   className="peer sr-only" 
                   checked={formData.serviceType === ServiceType.TIRE}
                   onChange={() => setFormData({...formData, serviceType: ServiceType.TIRE})}
@@ -88,6 +120,8 @@ const Schedule: React.FC = () => {
               <label className="relative cursor-pointer group">
                 <input 
                   type="radio" 
+                  name="serviceType"
+                  value={ServiceType.OIL}
                   className="peer sr-only"
                   checked={formData.serviceType === ServiceType.OIL}
                   onChange={() => setFormData({...formData, serviceType: ServiceType.OIL})}
@@ -103,8 +137,9 @@ const Schedule: React.FC = () => {
             </div>
             <div className="flex justify-end">
               <button 
+                type="button"
                 onClick={nextStep} 
-                className="bg-primary hover:bg-red-700 text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic shadow-xl shadow-primary/20"
+                className="bg-primary hover:bg-red-700 text-white px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic text-sm sm:text-base shadow-xl shadow-primary/20"
               >
                 Next: Location <span className="material-symbols-outlined">arrow_forward</span>
               </button>
@@ -122,6 +157,8 @@ const Schedule: React.FC = () => {
               <label className="relative cursor-pointer group">
                 <input 
                   type="radio" 
+                  name="locationType"
+                  value={LocationType.SHOP}
                   className="peer sr-only" 
                   checked={formData.locationType === LocationType.SHOP}
                   onChange={() => setFormData({...formData, locationType: LocationType.SHOP})}
@@ -131,13 +168,15 @@ const Schedule: React.FC = () => {
                     <span className="material-symbols-outlined text-3xl">store</span>
                   </div>
                   <h3 className="text-lg font-bold mb-1 italic">In-Shop</h3>
-                  <p className="text-sm text-slate-400">Visit us at Stirling Rd, Davie, FL.</p>
+                  <p className="text-sm text-slate-400">Visit us at our location.</p>
                 </div>
               </label>
 
               <label className="relative cursor-pointer group">
                 <input 
                   type="radio" 
+                  name="locationType"
+                  value={LocationType.MOBILE}
                   className="peer sr-only"
                   checked={formData.locationType === LocationType.MOBILE}
                   onChange={() => setFormData({...formData, locationType: LocationType.MOBILE})}
@@ -152,14 +191,15 @@ const Schedule: React.FC = () => {
               </label>
             </div>
             <div className="flex justify-between">
-              <button onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
+              <button type="button" onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
                 <span className="material-symbols-outlined">arrow_back</span> Back
               </button>
               <button 
+                type="button"
                 onClick={nextStep} 
-                className="bg-primary hover:bg-red-700 text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic shadow-xl shadow-primary/20"
+                className="bg-primary hover:bg-red-700 text-white px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic text-sm sm:text-base shadow-xl shadow-primary/20"
               >
-                Next: Vehicle Info <span className="material-symbols-outlined">arrow_forward</span>
+                Vehicle Info <span className="material-symbols-outlined">arrow_forward</span>
               </button>
             </div>
           </div>
@@ -181,30 +221,30 @@ const Schedule: React.FC = () => {
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-slate-300">Oil Type Preference *</label>
                   <select required name="oilType" value={formData.oilType} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-white">
-                    <option value="">Select Oil Type</option>
-                    <option value="Regular">Regular / Conventional</option>
-                    <option value="Synthetic">Full Synthetic (Recommended)</option>
-                    <option value="Synthetic Blend">Synthetic Blend</option>
+                    <option className="text-black" value="">Select Oil Type</option>
+                    <option className="text-black" value="Regular">Regular / Conventional</option>
+                    <option className="text-black" value="Synthetic">Full Synthetic (Recommended)</option>
+                    <option className="text-black" value="Synthetic Blend">Synthetic Blend</option>
                   </select>
                 </div>
               )}
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-slate-300">Preferred Brand</label>
+                <label className="text-sm font-semibold text-black">Preferred Brand</label>
                 <select name="brand" value={formData.brand} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-white">
-                  <option>Any Brand (Best Value)</option>
+                  <option className="text-black">Any Brand (Best Value)</option>
                   {formData.serviceType === ServiceType.TIRE ? (
                     <>
-                      <option>Michelin</option>
-                      <option>Bridgestone</option>
-                      <option>Goodyear</option>
-                      <option>Continental</option>
+                      <option className="text-black">Michelin</option>
+                      <option className="text-black">Bridgestone</option>
+                      <option className="text-black">Goodyear</option>
+                      <option className="text-black">Continental</option>
                     </>
                   ) : (
                     <>
-                      <option>Mobil 1</option>
-                      <option>Castrol</option>
-                      <option>Valvoline</option>
-                      <option>Pennzoil</option>
+                      <option className="text-black">Mobil 1</option>
+                      <option className="text-black">Castrol</option>
+                      <option className="text-black">Valvoline</option>
+                      <option className="text-black">Pennzoil</option>
                     </>
                   )}
                 </select>
@@ -221,15 +261,16 @@ const Schedule: React.FC = () => {
               </div>
             </div>
             <div className="flex justify-between pt-6">
-              <button onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
+              <button type="button" onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
                 <span className="material-symbols-outlined">arrow_back</span> Back
               </button>
               <button 
+                type="button"
                 onClick={nextStep} 
                 disabled={!valid}
-                className={`bg-primary text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic shadow-xl shadow-primary/20 ${!valid ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'}`}
+                className={`bg-primary text-white px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic text-sm sm:text-base shadow-xl shadow-primary/20 ${!valid ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'}`}
               >
-                Next: Contact Info <span className="material-symbols-outlined">arrow_forward</span>
+                Contact Info <span className="material-symbols-outlined">arrow_forward</span>
               </button>
             </div>
           </div>
@@ -261,16 +302,31 @@ const Schedule: React.FC = () => {
               </label>
               <input required name="address" value={formData.address} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-white" placeholder="123 Ocean Blvd, Davie, FL" />
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-2 md:col-span-1">
+                <label className="text-sm font-semibold text-slate-300">City *</label>
+                <input required name="city" value={formData.city} onChange={handleInputChange} autoComplete="address-level2" maxLength={60} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-white" placeholder="Davie" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-slate-300">State *</label>
+                <input required name="state" value={formData.state} onChange={handleInputChange} autoComplete="address-level1" maxLength={2} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-white uppercase" placeholder="FL" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-slate-300">Zip Code *</label>
+                <input required name="zipCode" value={formData.zipCode} onChange={handleInputChange} autoComplete="postal-code" inputMode="numeric" maxLength={10} pattern="\d{5}(-\d{4})?" title="Enter a valid ZIP code (e.g. 33314 or 33314-1234)" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-white" placeholder="33314" />
+              </div>
+            </div>
             <div className="flex justify-between pt-6">
-              <button onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
+              <button type="button" onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
                 <span className="material-symbols-outlined">arrow_back</span> Back
               </button>
               <button 
+                type="button"
                 onClick={nextStep} 
                 disabled={!valid}
-                className={`bg-primary text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic shadow-xl shadow-primary/20 ${!valid ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'}`}
+                className={`bg-primary text-white px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic text-sm sm:text-base shadow-xl shadow-primary/20 ${!valid ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'}`}
               >
-                Next: Appointment <span className="material-symbols-outlined">arrow_forward</span>
+                Appointment <span className="material-symbols-outlined">arrow_forward</span>
               </button>
             </div>
           </div>
@@ -290,23 +346,24 @@ const Schedule: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-slate-300">Time Window *</label>
                 <select required name="time" value={formData.time} onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-white">
-                  <option value="">Choose Time</option>
-                  <option>Morning (8am - 12pm)</option>
-                  <option>Afternoon (12pm - 4pm)</option>
-                  <option>Evening (4pm - 8pm)</option>
+                  <option className="text-black" value="">Choose Time</option>
+                  <option className="text-black">Morning (8am - 12pm)</option>
+                  <option className="text-black">Afternoon (12pm - 4pm)</option>
+                  <option className="text-black">Evening (4pm - 8pm)</option>
                 </select>
               </div>
             </div>
             <div className="flex justify-between pt-6">
-              <button onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
+              <button type="button" onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
                 <span className="material-symbols-outlined">arrow_back</span> Back
               </button>
               <button 
+                type="button"
                 onClick={nextStep} 
                 disabled={!valid}
-                className={`bg-primary text-white px-8 py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic shadow-xl shadow-primary/20 ${!valid ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'}`}
+                className={`bg-primary text-white px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg font-bold transition-all flex items-center gap-2 uppercase italic text-sm sm:text-base shadow-xl shadow-primary/20 ${!valid ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'}`}
               >
-                Next: Summary <span className="material-symbols-outlined">arrow_forward</span>
+                Summary <span className="material-symbols-outlined">arrow_forward</span>
               </button>
             </div>
           </div>
@@ -335,17 +392,33 @@ const Schedule: React.FC = () => {
                 <div className="flex justify-between text-sm"><span className="text-slate-500">Name:</span> <span className="text-white font-bold">{formData.name}</span></div>
                 <div className="flex justify-between text-sm"><span className="text-slate-500">Phone:</span> <span className="text-white font-bold">{formData.phone}</span></div>
                 <div className="truncate text-xs text-slate-400 mt-2">{formData.address}</div>
+                <div className="truncate text-xs text-slate-400">{formData.city}, {formData.state} {formData.zipCode}</div>
                 <div className="flex justify-between text-sm pt-2 border-t border-white/5"><span className="text-slate-500">Appt:</span> <span className="text-white font-bold">{formData.date} @ {formData.time}</span></div>
               </div>
             </div>
             <div className="flex justify-between pt-6">
-              <button onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
+              <button type="button" onClick={prevStep} className="text-slate-400 hover:text-white font-bold flex items-center gap-2 uppercase italic">
                 <span className="material-symbols-outlined">arrow_back</span> Edit
               </button>
-              <button onClick={() => alert('Service Request Sent! We will contact you shortly.')} className="bg-primary hover:bg-red-700 text-white px-10 py-4 rounded-xl font-bold transition-all shadow-2xl shadow-primary/20 uppercase italic text-lg">
-                Confirm Booking
-              </button>
             </div>
+            <label className="flex items-start gap-3 p-4 rounded-xl border border-white/10 bg-white/5">
+              <input
+                type="checkbox"
+                checked={reviewConfirmed}
+                onChange={(e) => setReviewConfirmed(e.target.checked)}
+                className="mt-1 h-4 w-4 accent-primary"
+              />
+              <span className="text-sm text-slate-300">
+                I reviewed all details above and I am ready to send this service request.
+              </span>
+            </label>
+            <button
+              type="submit"
+              disabled={state.submitting || !reviewConfirmed}
+              className="w-full bg-primary hover:bg-red-700 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-xl font-bold transition-all shadow-2xl shadow-primary/20 uppercase italic text-base sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {state.submitting ? 'Sending...' : 'Send Request'}
+            </button>
           </div>
         );
       default:
@@ -386,11 +459,50 @@ const Schedule: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 stagger-3 animate-from-top">
-            <div className="bg-surface-dark border border-white/10 rounded-xl p-8 shadow-2xl min-h-[450px]">
-              {renderStep()}
-            </div>
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl stagger-3 animate-from-top">
+            <form onSubmit={onSubmit} className="bg-surface-dark border border-white/10 rounded-xl p-8 shadow-2xl min-h-[450px]">
+              <input type="hidden" name="serviceType" value={formData.serviceType} />
+              <input type="hidden" name="locationType" value={formData.locationType} />
+              <input type="hidden" name="_subject" value={`New Service Request - ${formData.name || "Customer"}`} />
+              <input type="hidden" name="name" value={formData.name} />
+              <input type="hidden" name="phone" value={formData.phone} />
+              <input type="hidden" name="email" value={formData.email} />
+              <input type="hidden" name="address" value={formData.address} />
+              <input type="hidden" name="city" value={formData.city} />
+              <input type="hidden" name="state" value={formData.state} />
+              <input type="hidden" name="zipCode" value={formData.zipCode} />
+              <input type="hidden" name="tireSize" value={formData.tireSize} />
+              <input type="hidden" name="oilType" value={formData.oilType} />
+              <input type="hidden" name="brand" value={formData.brand} />
+              <input type="hidden" name="year" value={formData.year} />
+              <input type="hidden" name="makeModel" value={formData.makeModel} />
+              <input type="hidden" name="date" value={formData.date} />
+              <input type="hidden" name="time" value={formData.time} />
+              <input
+                type="hidden"
+                name="serviceDetails"
+                value={`${formData.serviceType} | ${formData.locationType} | ${formData.year} ${formData.makeModel} | ${formData.tireSize || formData.oilType || "N/A"} | ${formData.brand} | ${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}`}
+              />
+              {state.succeeded ? (
+                <div className="space-y-4 text-center animate-from-top">
+                  <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto">
+                    <span className="material-symbols-outlined text-4xl">check_circle</span>
+                  </div>
+                  <h2 className="text-3xl font-bold uppercase italic">Request Sent</h2>
+                  <p className="text-slate-400">Thanks. We received your service request and will contact you shortly.</p>
+                </div>
+              ) : (
+                <>
+                  {renderStep()}
+                  {step === 6 && (
+                    <div className="mt-6">
+                      <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-sm" />
+                    </div>
+                  )}
+                </>
+              )}
+            </form>
           </div>
         </div>
       </div>
