@@ -7,6 +7,7 @@ import Schedule from './pages/Schedule';
 import Contact from './pages/Contact';
 import Owners from './pages/Owners';
 import { NAV_LINKS } from './constants';
+import luisSaraviaLogo from './Assets/Images/luis-saravia-logo.svg';
 
 const Header = () => {
   const location = useLocation();
@@ -113,7 +114,21 @@ const Footer = () => (
       </div>
     </div>
     <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-      <p>© 2024 Davie Tire & Auto. All Rights Reserved.</p>
+      <p className="flex items-center gap-2">
+        <span>© 2024 Davie Tire & Auto. All Rights Reserved. Created by</span>
+        <a
+          href="https://luissaravia.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center align-middle"
+        >
+          <img
+            src={luisSaraviaLogo}
+            alt="Luis Saravia"
+            className="h-7 w-auto rounded bg-white px-1 py-0.5"
+          />
+        </a>
+      </p>
       <div className="flex gap-6">
         <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
         <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>

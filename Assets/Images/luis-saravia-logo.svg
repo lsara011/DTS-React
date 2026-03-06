@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Luis Saravia logo</title>
+  <desc id="desc">Stacked wordmark reading LUIS on top and SARAVIA below.</desc>
+  <g fill="#000">
+    <text
+      x="0"
+      y="250"
+      font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif"
+      font-size="340"
+      font-weight="700"
+      letter-spacing="6"
+    >
+      LUIS
+    </text>
+    <text
+      x="0"
+      y="505"
+      font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif"
+      font-size="235"
+      font-weight="700"
+      letter-spacing="5"
+    >
+      SARAVIA
+    </text>
+  </g>
+</svg>
