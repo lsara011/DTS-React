@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MomAndDarwin from '../Assets/Images/MomAndDarwin.png';
+import family from '../Assets/Images/compPhoto.png'
 
 const About: React.FC = () => {
   return (
@@ -11,9 +13,8 @@ const About: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/90 to-transparent z-10"></div>
           <img 
             alt="Founder" 
-            className="w-full h-full object-cover grayscale opacity-40" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-WT3iaOu5HHPuTBeUsuTvIIZxCjol150D3QaSAgerbZ732D3BI5rRZQc49g5YBYcZam6UBKxpo8bUmSMZbN0Q_GNP5816q1puigUxjbxPACX6fXNbWFRed4lgJXomVM47ekLj1rt6xY3jdFcXS87LGn9Ks4c5wq8y5fPHm6pMtmcgNfIfl4Xj5P5VvAu4XIyYiLgnAe_NJ1eqVYNdvF32U-at60-CtZ3V0QV-G0ZW7JSVF8eDRqZmIVzxASkzNsAsC57ivXxBfM8" 
-          />
+            className="w-full h-full object-cover object-[50%-0%] grayscale opacity-90" 
+            src={family}/>
         </div>
         <div className="relative z-20 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 stagger-1 animate-from-top">
@@ -28,11 +29,8 @@ const About: React.FC = () => {
               Our <span className="text-primary italic">Journey</span>
             </h1>
             <p className="text-xl text-slate-400 max-w-lg leading-relaxed font-light">
-              Breaking boundaries in Davie: A female-led path to automotive excellence, community trust, and a new standard for tire service.
+              Breaking boundaries in Davie: A family-led path to automotive excellence, community trust, and a new standard for tire service.
             </p>
-            <button className="bg-primary text-white px-8 py-4 rounded-lg font-bold hover:scale-105 transition-transform flex items-center gap-2 uppercase italic">
-              Explore Our History <span className="material-symbols-outlined">arrow_downward</span>
-            </button>
           </div>
         </div>
       </section>
@@ -40,24 +38,21 @@ const About: React.FC = () => {
       {/* Narrative Section */}
       <section className="py-24 px-6 relative max-w-5xl mx-auto">
         <div className="space-y-32">
-          <div className="flex flex-col md:flex-row items-center gap-12 stagger-2 animate-from-top">
+          <div className="flex flex-col md:flex-row md:items-stretch gap-12 stagger-2 animate-from-top">
             <div className="flex-1 order-2 md:order-1">
-              <div className="bg-surface-dark border border-white/5 p-8 rounded-xl shadow-2xl">
+              <div className="h-full bg-surface-dark border border-white/5 p-8 rounded-xl shadow-2xl">
                 <h3 className="text-primary font-bold text-sm uppercase mb-4 tracking-widest">The Beginning</h3>
                 <h2 className="text-3xl font-bold mb-6 italic uppercase">A Vision for Davie</h2>
                 <p className="text-slate-400 leading-relaxed mb-6">
-After moving to the United States from Honduras at a young age, Ada (also known as Leticia) Sanchez spent much of her life working in the food service industry. Through years of hard work and dedication, she developed a strong work ethic and a deep desire to build something of her own.
-
-Determined to become her own boss, Ada took a leap of faith with the support of friends and family. Alongside her cousin Darwin, she opened a tire shop on Davie Boulevard. What began as a dream quickly became a business rooted in hard work, perseverance, and community service.
-
-Today, Ada is a proud and hardworking mother of three who continues to provide for her family while serving the community with reliable tire services. Her story is one of determination, resilience, and the pursuit of a better future.
+Ada and Darwin’s journey is a testament to perseverance, sacrifice, and entrepreneurial spirit. Growing up in Honduras, they came to the United States in search of greater opportunities and a better future for their families. Through years of hard work in the restaurant industry, they developed a strong work ethic and a dream of becoming business owners. In 2023, that dream became a reality when they established and opened Davie Tire Shop in Florida. Built on dedication, integrity, and a commitment to serving their community, Davie Tire Shop represents not only a successful business, but also the fulfillment of a lifelong goal to create something of their own and leave a lasting legacy.
 </p>
               </div>
             </div>
             <div className="flex-1 order-1 md:order-2">
               <img 
-                className="rounded-xl border-4 border-primary/20 shadow-2xl" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZy2sXvFflT64DzDtNYc2FCQGzyKwabIhnn3Lukyb7KLlshg_SMk6D46MU9xlDEmogHLfejtOA66P6CM3zdWEBA-T8lwrLMuyIIAAPJFixXRUmth0Xrwu3BmTSrSX04kffCENuQTldDtopwjc6DY68W6gXWN3xb8oIuqPvztMLPYoFJ3dTbydhVX4xug-782D7FpctsglXZWGp6OBOsHE-vpPq0EGlyYk2R60YaDrWXH8YfrkX3VVdS4ThQ5gsyNW-SXiZAZ-2DLU" 
+                className="h-full w-full rounded-xl border-4 border-primary/20 object-cover shadow-2xl" 
+                src={MomAndDarwin}
+                alt="Ada Sanchez portrait"
               />
             </div>
           </div>

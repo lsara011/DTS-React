@@ -40,7 +40,7 @@ const Header = () => {
 
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex flex-col items-end mr-4">
-            <span className="text-sm font-bold text-white">(954) 860-9497</span>
+            <span className="text-sm font-bold text-white">(954) 860-9497 <em>Drive-ins Available</em></span>
           </div>
           <Link 
             to="/schedule"
@@ -84,7 +84,7 @@ const Footer = () => (
           <h2 className="text-xl font-extrabold tracking-tighter uppercase italic text-white">Davie Tire & Auto</h2>
         </div>
         <p className="text-slate-400 max-w-sm mb-6 leading-relaxed">
-          Providing top-tier automotive maintenance and tire services to the Davie community for over 15 years. Quality service you can trust.
+          Providing top-tier automotive maintenance and tire services to the Davie community. Quality service you can trust.
         </p>
         <div className="flex gap-4">
           <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-all">

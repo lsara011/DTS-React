@@ -1,5 +1,8 @@
 
 import React from 'react';
+import Darwin from '../Assets/Images/darwin.png'
+import Mom from '../Assets/Images/mom.png'
+import MomandDarwin from '../Assets/Images/MomAndDarwin.png'
 
 const Owners: React.FC = () => {
   return (
@@ -10,8 +13,8 @@ const Owners: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/60 to-transparent z-10"></div>
           <img 
             alt="Owners at the shop" 
-            className="w-full h-full object-cover grayscale opacity-50" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9VXj0Vl9WUOP_5n-MxV1NH52MFhns8jU4ayXjQT9x-OAIfVWhQDxWUxGzoOZauOdsCMU-dQao7macOSiNqt5B4v1MHunIbbrq_GCLKEi6T50hU3856VfqI1i8nlZ1HYEkzryo7njxmR5TsjZh9X9tGXOjQEjgkK6cprmuKQ-nFoT-5pO2LFxd6iurrKdD1uYp7jqVSCL682CqLj4QrFzZqiFwQFX6f-mgILFD2JzMYzs1iqvuCkmVoZR6-D1O9l8zx0D1cusPZw" 
+            className="w-full h-full object-cover object-[50%_20%] grayscale opacity-50" 
+            src={MomandDarwin} 
           />
         </div>
         <div className="relative z-20 max-w-4xl">
@@ -31,13 +34,13 @@ const Owners: React.FC = () => {
             <div className="relative">
               <img
                 className="w-full aspect-[4/5] object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZy2sXvFflT64DzDtNYc2FCQGzyKwabIhnn3Lukyb7KLlshg_SMk6D46MU9xlDEmogHLfejtOA66P6CM3zdWEBA-T8lwrLMuyIIAAPJFixXRUmth0Xrwu3BmTSrSX04kffCENuQTldDtopwjc6DY68W6gXWN3xb8oIuqPvztMLPYoFJ3dTbydhVX4xug-782D7FpctsglXZWGp6OBOsHE-vpPq0EGlyYk2R60YaDrWXH8YfrkX3VVdS4ThQ5gsyNW-SXiZAZ-2DLU"
+                src={Mom}
                 alt="Ada Sanchez"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-6">
                 <h2 className="text-3xl font-black uppercase italic text-white">Ada Sanchez</h2>
                 <p className="text-primary uppercase tracking-widest text-xs font-bold">
-                  Principal Owner
+                  Owner
                 </p>
               </div>
             </div>
@@ -56,7 +59,7 @@ const Owners: React.FC = () => {
             <div className="relative">
               <img
                 className="w-full aspect-[4/5] object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9VXj0Vl9WUOP_5n-MxV1NH52MFhns8jU4ayXjQT9x-OAIfVWhQDxWUxGzoOZauOdsCMU-dQao7macOSiNqt5B4v1MHunIbbrq_GCLKEi6T50hU3856VfqI1i8nlZ1HYEkzryo7njxmR5TsjZh9X9tGXOjQEjgkK6cprmuKQ-nFoT-5pO2LFxd6iurrKdD1uYp7jqVSCL682CqLj4QrFzZqiFwQFX6f-mgILFD2JzMYzs1iqvuCkmVoZR6-D1O9l8zx0D1cusPZw"
+                src={Darwin}
                 alt="Darwin"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-6">

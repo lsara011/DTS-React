@@ -17,12 +17,6 @@ const Home: React.FC = () => {
             />
         </div>
         <div className="relative z-20 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 mb-6 stagger-1 animate-from-top">
-            <span className="material-symbols-outlined text-sm">verified</span>
-            <span className="text-xs font-bold uppercase tracking-wider">
-              Davie's Most Trusted Tire Shop
-            </span>
-          </div>
           <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight uppercase stagger-2 animate-from-top">
             Davie's hometown <br />
             <span className="text-primary italic">Tire Care</span>
