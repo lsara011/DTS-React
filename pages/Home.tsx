@@ -28,13 +28,6 @@ const Home: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 stagger-4 animate-from-top">
             <Link
-              to="/schedule"
-              className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-2xl shadow-primary/30"
-            >
-              <span className="material-symbols-outlined">schedule</span>
-              Book Service
-            </Link>
-            <Link
               to="/contact"
               className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3"
             >
@@ -122,15 +115,6 @@ const Home: React.FC = () => {
               <p className="text-slate-400 text-sm leading-relaxed mb-6">
                 {svc.desc}
               </p>
-              <Link
-                to="/schedule"
-                className="text-primary text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all"
-              >
-                Book Now{" "}
-                <span className="material-symbols-outlined text-sm">
-                  arrow_forward
-                </span>
-              </Link>
             </div>
           ))}
         </div>

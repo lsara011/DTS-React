@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
-import Schedule from './pages/Schedule';
 import Contact from './pages/Contact';
 import Owners from './pages/Owners';
 import { NAV_LINKS } from './constants';
@@ -17,9 +16,8 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/80 backdrop-blur-md px-6 py-4 lg:px-20">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
-          <span className="material-symbols-outlined text-primary text-4xl group-hover:rotate-45 transition-transform">tire_repair</span>
           <h2 className="text-xl font-extrabold tracking-tighter uppercase italic text-white">
-            Davie Tire <span className="text-primary">& Auto</span>
+            Davie Tire Shop
           </h2>
         </Link>
         
@@ -42,12 +40,7 @@ const Header = () => {
           <div className="hidden lg:flex flex-col items-end mr-4">
             <span className="text-sm font-bold text-white">(954) 860-9497 <em>Drive-ins Available</em></span>
           </div>
-          <Link 
-            to="/schedule"
-            className="bg-primary hover:bg-red-700 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-95"
-          >
-            Schedule Now
-          </Link>
+          
           <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
           </button>
@@ -156,7 +149,6 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/owners" element={<Owners />} />
-            <Route path="/schedule" element={<Schedule />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>

@@ -6,7 +6,6 @@ export const NAV_LINKS: NavItem[] = [
   { label: 'Home', path: '/' },
   { label: 'Our Story', path: '/about' },
   { label: 'The Owners', path: '/owners' },
-  { label: 'Schedule Service', path: '/schedule' },
   { label: 'Contact', path: '/contact' }
 ];
 
