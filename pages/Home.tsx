@@ -34,7 +34,7 @@ const Home: React.FC = () => {
               <span className="material-symbols-outlined">directions</span>
               Get Directions
             </Link>
-           <div className="bg-white/10 backdrop-blur-sm text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-3">
+           <div className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3">
             (954) 860-9497
             </div> 
           </div>
