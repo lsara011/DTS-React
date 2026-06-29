@@ -34,13 +34,11 @@ const Header = () => {
               <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${location.pathname === link.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
           ))}
+          
+
         </nav>
 
         <div className="flex items-center gap-4">
-          <div className="hidden lg:flex flex-col items-end mr-4">
-            <span className="text-sm font-bold text-white">(954) 860-9497 <em>Drive-ins Available</em></span>
-          </div>
-          
           <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
           </button>
