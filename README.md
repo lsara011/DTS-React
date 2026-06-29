@@ -115,7 +115,15 @@ This project can be deployed to static hosts such as GitHub Pages, Netlify, Verc
 
 For GitHub Pages, the app uses `HashRouter`, which keeps client-side routes working on static hosting without extra rewrite configuration.
 
-When deploying manually, run the production build first and upload the contents of the `dist` folder, not the project source folder. The source `index.html` points to `/index.tsx` for Vite development, but a static web host cannot compile `.tsx` files. The built `dist/index.html` points to the compiled JavaScript in `dist/assets`.
+When deploying manually, run the production build first and upload the contents of the `docs` folder, not the project source folder. The source `index.html` points to `/index.tsx` for Vite development, but a static web host cannot compile `.tsx` files. The built `docs/index.html` points to the compiled JavaScript in `docs/assets`.
+
+For GitHub Pages, set the source to:
+
+```text
+Deploy from a branch
+Branch: main
+Folder: /docs
+```
 
 ### Custom Domain
 
